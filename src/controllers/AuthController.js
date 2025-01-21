@@ -15,9 +15,7 @@ const registerUser = async (req, res) => {
   }
 
 
-  const user = await User.findOne({ username })
-
-  if (user) {
+  if (await doesUserExist(username)) {
     return res.status(400).json({ message: 'User already exists' })
   }
 
@@ -66,5 +64,16 @@ const logoutUser = async (req, res) => {
 
   res.json({ message: 'Logout successful' }).status(200)
 }
+
+const doesUserExist = async (username) => {
+  const user = await User.findOne({ username })
+
+  if (user) {
+    return true
+  }
+
+  return false
+}
+
 
 module.exports = { registerUser, loginUser, logoutUser }
