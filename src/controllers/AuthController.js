@@ -68,9 +68,7 @@ const logoutUser = async (req, res) => {
 const doesUserExist = async (username) => {
   const user = await User.findOne({ username })
 
-  if (user) return true
-
-  return false
+  return user ? true : false
 }
 
 
